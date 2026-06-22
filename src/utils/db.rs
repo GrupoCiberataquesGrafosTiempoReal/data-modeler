@@ -51,10 +51,10 @@ pub fn model_query(event: Value) -> Query {
             resp_pkts: $resp_pkts,
             service: $service,
             ts: $ts,
-            uid: $uid,
-            label_tactic: $label_tactic,
-            label_technique: $label_technique,
+            uid: $uid,,
             label_binary: $label_binary
+            label_tactic: $label_tactic,
+            confidence: $confidence,
         }]->(dest)
         "#,
     )
@@ -75,7 +75,7 @@ pub fn model_query(event: Value) -> Query {
     .param("service", event["service"].as_str().unwrap_or_default())
     .param("ts", event["ts"].as_f64().unwrap_or_default())
     .param("uid", event["uid"].as_str().unwrap_or_default())
-    .param("label_tactic", event["label_tactic"].as_str().unwrap_or_default())
-    .param("label_technique", event["label_technique"].as_str().unwrap_or_default())
     .param("label_binary", event["label_binary"].as_bool().unwrap_or_default())
+    .param("label_tactic", event["label_tactic"].as_str().unwrap_or_default())
+    .param("confidence", event["confidence"].as_i64().unwrap_or_default())
 }
