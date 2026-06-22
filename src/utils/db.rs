@@ -77,5 +77,5 @@ pub fn model_query(event: Value) -> Query {
     .param("uid", event["uid"].as_str().unwrap_or_default())
     .param("label_binary", event["label_binary"].as_bool().unwrap_or_default())
     .param("label_tactic", event["label_tactic"].as_str().unwrap_or_default())
-    .param("confidence", event["confidence"].as_i64().unwrap_or_default())
+    .param("confidence", event["confidence"].as_f64().unwrap_or_default())
 }
