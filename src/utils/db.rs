@@ -51,10 +51,10 @@ pub fn model_query(event: Value) -> Query {
             resp_pkts: $resp_pkts,
             service: $service,
             ts: $ts,
-            uid: $uid,,
-            label_binary: $label_binary
+            uid: $uid,
+            label_binary: $label_binary,
             label_tactic: $label_tactic,
-            confidence: $confidence,
+            confidence: $confidence
         }]->(dest)
         "#,
     )
