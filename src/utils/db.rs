@@ -35,7 +35,7 @@ pub fn model_query(event: Value) -> Query {
         r#"
         MERGE (src:IP {ip: $src_ip_zeek})
         MERGE (dest:IP {ip: $dest_ip_zeek})
-        CREATE (src)-[:EVENT {
+        CREATE (src)-[:NETWORK_CONNECTION {
             created_at: datetime(),
             conn_state: $conn_state,
             duration: $duration,
