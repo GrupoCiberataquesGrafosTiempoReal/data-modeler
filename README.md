@@ -12,6 +12,7 @@ KAFKA_TOPIC=<name>              # Ex.: topic.name
 BATCH_SIZE=<numer>              # Ex.: 10 (Number of messages per batch)
 BATCH_TIMEOUT=<number>          # Ex.: 1000 (Number of miliseconds to wait to process a incomplet batches)
 DB_URL=<protocol://ip:port>     # Ex.: neo4j://localhost:7687  
+DB_NAME<name>                   # Ex.: neo4j
 DB_USER=<user>                  # Ex.: user
 DB_PASS=<password>              # Ex.: pass
 ```

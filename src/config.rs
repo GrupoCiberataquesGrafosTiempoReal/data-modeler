@@ -9,6 +9,7 @@ pub struct Config {
     pub batch_size: usize,
     pub batch_timeout: Duration,
     pub db_url: String,
+    pub db_name: String,
     pub db_user: String,
     pub db_pass: String,
 }
@@ -39,6 +40,9 @@ pub fn from_environment() -> Result<Config> {
     let db_url = env::var("DB_URL")
         .map_err(|_| anyhow!("DB_URL environment variable not set"))?;
 
+    let db_name = env::var("DB_NAME")
+        .map_err(|_| anyhow!("DB_NAME environment variable not set"))?;
+
     let db_user = env::var("DB_USER")
         .map_err(|_| anyhow!("DB_USER environment variable not set"))?;
 
@@ -51,6 +55,7 @@ pub fn from_environment() -> Result<Config> {
         batch_size,
         batch_timeout,
         db_url,
+        db_name,
         db_user,
         db_pass,
     })

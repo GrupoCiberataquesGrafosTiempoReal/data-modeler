@@ -7,6 +7,7 @@ use serde_json::Value;
 pub async fn new_client(config: &Config) -> Result<Graph> {
     let neo4j_config = ConfigBuilder::default()
         .uri(&config.db_url)
+        .db(config.db_name.clone())
         .user(&config.db_user)
         .password(&config.db_pass)
         .build()?;
