@@ -35,15 +35,17 @@ pub fn model_query(event: Value) -> Query {
     query(
         r#"
         MERGE (src:IP {ip: $src_ip_zeek})
+        ON CREATE SET src.is_local = $local_orig
+
         MERGE (dest:IP {ip: $dest_ip_zeek})
+        ON CREATE SET dest.is_local = $local_resp
+
         CREATE (src)-[:NETWORK_CONNECTION {
             created_at: datetime(),
             conn_state: $conn_state,
             duration: $duration,
             src_port_zeek: $src_port_zeek,
             dest_port_zeek: $dest_port_zeek,
-            local_orig: $local_orig,
-            local_resp: $local_resp,
             missed_bytes: $missed_bytes,
             orig_bytes: $orig_bytes,
             orig_pkts: $orig_pkts,
@@ -60,13 +62,13 @@ pub fn model_query(event: Value) -> Query {
         "#,
     )
     .param("src_ip_zeek", event["src_ip_zeek"].as_str().unwrap_or_default())
+    .param("local_orig", event["local_orig"].as_bool().unwrap_or_default())
     .param("dest_ip_zeek", event["dest_ip_zeek"].as_str().unwrap_or_default())
+    .param("local_resp", event["local_resp"].as_bool().unwrap_or_default())
     .param("conn_state", event["conn_state"].as_str().unwrap_or_default())
     .param("duration", event["duration"].as_f64().unwrap_or_default())
     .param("src_port_zeek", event["src_port_zeek"].as_i64().unwrap_or_default())
     .param("dest_port_zeek", event["dest_port_zeek"].as_i64().unwrap_or_default())
-    .param("local_orig", event["local_orig"].as_bool().unwrap_or_default())
-    .param("local_resp", event["local_resp"].as_bool().unwrap_or_default())
     .param("missed_bytes", event["missed_bytes"].as_i64().unwrap_or_default())
     .param("orig_bytes", event["orig_bytes"].as_i64().unwrap_or_default())
     .param("orig_pkts", event["orig_pkts"].as_i64().unwrap_or_default())
